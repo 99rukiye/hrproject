@@ -15,6 +15,13 @@ public class User {
 
     private String fullName;
 
+    @Column(name = "account_locked")
+    private boolean accountLocked;
+
+
+    @Column(name = "account_non_locked")
+    private boolean accountNonLocked = true;
+
     @Column(unique = true)
     private String email;
 
