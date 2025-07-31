@@ -1,27 +1,28 @@
 package com.hr.hrproject.security;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.security.Key;
 import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
 
-    private final String JWT_SECRET = "super-secret-key";
+    // Base64 olarak encode edilmiş key (örnek, güvenlik için daha güçlü bir key üretilebilir)
+    private final String JWT_SECRET = "bXlzZWNyZXRrZXlteXNlY3JldGtleW15c2VjcmV0a2V5";  // "mysecretkeymysecretkeymysecretkey" base64 hali
     private final long JWT_EXPIRATION = 86400000L; // 1 gün
 
-    public String generateToken(UserDetails userDetails) {
-        Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + JWT_EXPIRATION);
+    private Key getSigningKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(JWT_SECRET);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
 
-        return Jwts.builder()
-                .setSubject(userDetails.getUsername()) // email
-                .setIssuedAt(now)
-                .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
-                .compact();
+    public String generateToken(UserDetails userDetails) {
+        return generateToken(userDetails.getUsername());
     }
 
     public String generateToken(String email) {
@@ -32,15 +33,14 @@ public class JwtTokenProvider {
                 .setSubject(email)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)  // HS512 yerine HS256 daha yaygın
                 .compact();
     }
 
-
-
     public String getEmailFromToken(String token) {
-        return Jwts.parser()
-                .setSigningKey(JWT_SECRET)
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
@@ -48,10 +48,9 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(token);
             return true;
-        } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException |
-                 SignatureException | IllegalArgumentException ex) {
+        } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
     }
