@@ -2,6 +2,7 @@ package com.hr.hrproject.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 @Table(name = "users")
 @Entity
 @Data
@@ -17,7 +18,6 @@ public class User {
 
     @Column(name = "account_locked")
     private boolean accountLocked;
-
 
     @Column(name = "account_non_locked")
     private boolean accountNonLocked = true;
@@ -38,9 +38,7 @@ public class User {
     @Column(name = "failed_login_attempts", nullable = false, columnDefinition = "int default 0")
     private int failedLoginAttempts;
 
-
     @ManyToOne
     @JoinColumn(name = "admin_id")
     private Admin admin;
 }
-
