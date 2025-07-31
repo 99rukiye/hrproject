@@ -38,6 +38,12 @@ public class AuthController {
                 .role(Role.USER)
                 .build();
 
+        user.setAccountNonLocked(true);
+        user.setBlocked(false);
+        user.setFailedLoginAttempts(0);
+        user.setLoginAttempts(0);
+        user.setAccountLocked(false);
+
         userRepository.save(user);
         return ResponseEntity.ok("Kayıt başarılı.");
     }
