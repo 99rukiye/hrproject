@@ -5,7 +5,6 @@ import com.hr.hrproject.dto.UpdateUserRequestDTO;
 import com.hr.hrproject.dto.AdminAddUserRequestDTO;
 import com.hr.hrproject.entity.Leave;
 import com.hr.hrproject.entity.Log;
-import com.hr.hrproject.entity.Role;
 import com.hr.hrproject.entity.Salary;
 import com.hr.hrproject.entity.User;
 import com.hr.hrproject.service.LeaveService;
@@ -15,9 +14,8 @@ import com.hr.hrproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
+import com.hr.hrproject.entity.Role;
 import java.time.LocalDateTime;
 import java.util.List;
 
