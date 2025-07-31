@@ -1,8 +1,8 @@
 package com.hr.hrproject.service;
+import com.hr.hrproject.entity.Role;
 
 import com.hr.hrproject.dto.LoginRequestDTO;
 import com.hr.hrproject.dto.UserRegisterRequestDTO;
-import com.hr.hrproject.entity.Role;
 import com.hr.hrproject.entity.User;
 import com.hr.hrproject.repository.UserRepository;
 import com.hr.hrproject.security.JwtTokenProvider;
