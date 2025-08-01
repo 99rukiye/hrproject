@@ -12,7 +12,7 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    // Base64 olarak encode edilmiş key (örnek, güvenlik için daha güçlü bir key üretilebilir)
+
     private final String JWT_SECRET = "bXlzZWNyZXRrZXlteXNlY3JldGtleW15c2VjcmV0a2V5";  // "mysecretkeymysecretkeymysecretkey" base64 hali
     private final long JWT_EXPIRATION = 86400000L; // 1 gün
 
