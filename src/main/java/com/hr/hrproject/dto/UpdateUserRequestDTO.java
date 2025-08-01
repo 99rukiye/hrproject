@@ -6,5 +6,5 @@ import lombok.Data;
 public class UpdateUserRequestDTO {
     private String fullName;
     private String email;
-    private String role; // "ADMIN" veya "USER"
+    private String role;
 }
