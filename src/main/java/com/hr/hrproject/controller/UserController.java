@@ -26,7 +26,7 @@ public class UserController {
 
     private final UserService userService;
     private final LeaveService leaveService;
-    private final SalaryService salaryService; // ✅ bu satır eksikti
+    private final SalaryService salaryService;
     private final JwtTokenProvider jwtTokenProvider;
     private final LogService logService;
 
